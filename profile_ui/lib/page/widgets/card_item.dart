@@ -19,9 +19,11 @@ class CardItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               IconButton(
+                padding: new EdgeInsets.all(0.0),
                 icon:Icon(
+                  
                 Icons.access_time,
-                size: 25.0,
+                size: 35.0,
                 color: Colors.red,
                 ),
                 onPressed: (){},
