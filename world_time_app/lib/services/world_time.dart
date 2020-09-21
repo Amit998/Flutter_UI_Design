@@ -26,8 +26,9 @@ class WorldTime {
 
       //setTime Property
       // time = now.toString();
-      isDayTime = now.hour > 6 && now.hour < 20 ? true : false ;
+      isDayTime = now.hour > 6 && now.hour < 20 ? true : false;
       time = DateFormat.jm().format(now);
+      // flag = 'india.png';
       // print(time);
 
     } catch (e) {

@@ -9,13 +9,15 @@ class _HomeState extends State<Home> {
   Map data = {};
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context).settings.arguments;
+    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
 
+    String currentFlag = data['flag'];
     print(data);
+    print(currentFlag);
 
     String bgImage = data['isDayTime'] ? 'day.png' : 'night.png';
-    Color bgColor= data['isDayTime'] ? Colors.blue : Colors.indigo;
-    Color fColor=data['isDayTime'] ? Colors.black : Colors.white;
+    Color bgColor = data['isDayTime'] ? Colors.blue : Colors.indigo;
+    Color fColor = data['isDayTime'] ? Colors.black : Colors.white;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -25,19 +27,30 @@ class _HomeState extends State<Home> {
             image: DecorationImage(
               image: AssetImage('assets/$bgImage'),
               fit: BoxFit.cover,
-              ),
+            ),
           ),
-            child: Padding(
+          child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 120.0, 0, 0),
             child: Column(
               children: <Widget>[
                 FlatButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/location');
+                  onPressed: () async {
+                    dynamic result =
+                        await Navigator.pushNamed(context, '/location');
+                    setState(() {
+                      data = {
+                        'time': result['time'],
+                        'location': result['location'],
+                        'isDayTime': result['isDayTime'],
+                        'flag': result['flag'],
+                      };
+                    });
                   },
-                  icon: Icon(Icons.edit_location,color: fColor),
-                  label: Text("Edit Location",style: TextStyle(color: fColor),),
-                
+                  icon: Icon(Icons.edit_location, color: fColor),
+                  label: Text(
+                    "Edit Location",
+                    style: TextStyle(color: fColor),
+                  ),
                 ),
                 SizedBox(height: 20.0),
                 Row(
@@ -58,14 +71,10 @@ class _HomeState extends State<Home> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      // 'lol',
-                      data['flag'],
-                      style: TextStyle(
-                        fontSize: 28.0,
-                        letterSpacing: 2.0,
-                        color: fColor,
-                      ),
+                    CircleAvatar(
+                      backgroundImage: AssetImage('assets/$currentFlag'),
+                      radius: 50.0,
+                      // image: AssetImage('assets/$bgImage'),
                     ),
                   ],
                 ),
