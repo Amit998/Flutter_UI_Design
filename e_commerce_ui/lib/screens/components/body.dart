@@ -48,14 +48,39 @@ class _BodyState extends State<Body> {
               ),
             ),
             Expanded(
-              flex: 2,
-              child: Column(
-                children: [
-                  Row(
-                    children: List.generate(
-                        splashData.length, (index) => BuildDot(index: index)),
-                  )
-                ],
+              flex: 3,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionScreenWidth(20)),
+                child: Column(
+                  children: [
+                    Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                          splashData.length, (index) => BuildDot(index: index)),
+                    ),
+                    Spacer(),
+                    SizedBox(
+                      width: double.infinity,
+                      height: getProportionScreenHeight(56),
+                      child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        color: kPrimaryColor,
+                        onPressed: () {},
+                        child: Text(
+                          "Continue",
+                          style: TextStyle(
+                            color: kPrimaryLightColor,
+                            fontSize: getProportionScreenWidth(18),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                  ],
+                ),
               ),
             ),
           ],
@@ -64,13 +89,14 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Container BuildDot({int index}) {
-    return Container(
+  AnimatedContainer BuildDot({int index}) {
+    return AnimatedContainer(
+      duration: kAnimationDuration,
       margin: EdgeInsets.only(right: 5),
       height: 6,
       width: currentPage == index ? 20 : 6,
       decoration: BoxDecoration(
-        color: currentPage == index ? kPrimaryColor:Color(0xFFD8D8D8),
+        color: currentPage == index ? kPrimaryColor : Color(0xFFD8D8D8),
         borderRadius: BorderRadius.circular(3),
       ),
     );
