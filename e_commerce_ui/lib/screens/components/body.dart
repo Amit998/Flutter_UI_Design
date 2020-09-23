@@ -2,6 +2,7 @@ import 'package:e_commerce_ui/constants.dart';
 import 'package:e_commerce_ui/size_config.dart';
 import 'package:flutter/material.dart';
 import './splash_content.dart';
+import '../../components/default_button.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -61,23 +62,7 @@ class _BodyState extends State<Body> {
                           splashData.length, (index) => BuildDot(index: index)),
                     ),
                     Spacer(),
-                    SizedBox(
-                      width: double.infinity,
-                      height: getProportionScreenHeight(56),
-                      child: FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        color: kPrimaryColor,
-                        onPressed: () {},
-                        child: Text(
-                          "Continue",
-                          style: TextStyle(
-                            color: kPrimaryLightColor,
-                            fontSize: getProportionScreenWidth(18),
-                          ),
-                        ),
-                      ),
-                    ),
+                    DefaultButton(text: "Continue", press: () {}),
                     Spacer(),
                   ],
                 ),
