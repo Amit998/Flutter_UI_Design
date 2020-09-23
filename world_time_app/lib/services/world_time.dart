@@ -20,6 +20,7 @@ class WorldTime {
 
       String dateTime = data['datetime'];
       String offset = data['utc_offset'].substring(1, 3);
+      print(dateTime + 'offset');
       // print(offset);
       DateTime now = DateTime.parse(dateTime);
       now.add(Duration(hours: int.parse(offset)));
@@ -29,7 +30,7 @@ class WorldTime {
       isDayTime = now.hour > 6 && now.hour < 20 ? true : false;
       time = DateFormat.jm().format(now);
       // flag = 'india.png';
-      // print(time);
+      print(time);
 
     } catch (e) {
       print('caught error: $e');
