@@ -3,9 +3,9 @@ import 'package:e_commerce_ui/screens/sign_in/sign_in_screen.dart';
 // import 'package:e_commerce_ui/screens/spalsh/splash_screen.dart';
 import 'package:e_commerce_ui/size_config.dart';
 import 'package:flutter/material.dart';
-// import './splash_content.dart';
-import '../spalsh/components/splash_content.dart';
-import '../../components/default_button.dart';
+import './splash_content.dart';
+// import '../../components/default_button.dart';
+import '../../../components/default_button.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -69,8 +69,7 @@ class _BodyState extends State<Body> {
                         text: "Continue",
                         press: () {
                           Navigator.pushNamed(context, SignInScreen.routeName);
-                        }
-                        ),
+                        }),
                     Spacer(),
                   ],
                 ),
