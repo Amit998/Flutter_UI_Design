@@ -18,11 +18,11 @@ class SizeConfig {
 double getProportionScreenHeight(double inputHeight) {
   double screenHeight = SizeConfig.screenHeight;
 
-  return (inputHeight / 812.0) * screenHeight ;
+  return (inputHeight / 812.0) * screenHeight;
 }
 
 double getProportionScreenWidth(double inputWidth) {
   double screenWidth = SizeConfig.screenWidth;
 
-  return (inputWidth / 812.0) * screenWidth ;
+  return (inputWidth / 375.0) * screenWidth;
 }
