@@ -1,3 +1,4 @@
+import 'package:e_commerce_ui/screens/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import '../size_config.dart';
 import '../constants.dart';
@@ -18,10 +19,9 @@ class NotAccountText extends StatelessWidget {
           style: TextStyle(fontSize: getProportionScreenHeight(16)),
         ),
         GestureDetector(
-          onTap: () {
-
-          },  
+          onTap: ()=> Navigator.pushNamed(context, SignUpScreen.routeName),  
           child: Text(
+            
             "Sign In",
             style: TextStyle(
                 fontSize: getProportionScreenHeight(16), color: kPrimaryColor),

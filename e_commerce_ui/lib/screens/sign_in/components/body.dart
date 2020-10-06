@@ -3,9 +3,7 @@ import 'package:e_commerce_ui/constants.dart';
 import 'package:e_commerce_ui/screens/forgot_Password/forgot_password.dart';
 import 'package:e_commerce_ui/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../../../components/custom_surfix_icon.dart';
-import '../../../components/form_error.dart';
+
 import '../components/sign_in_form.dart';
 import '../../../components/social_card.dart';
 import '../../../components/no_account.dart';
