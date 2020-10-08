@@ -1,3 +1,4 @@
+import 'package:brew_crew_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/user.dart';
 
@@ -22,7 +23,7 @@ class AuthService {
       return _useFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
-      
+
       return null;
     }
   }
@@ -34,7 +35,7 @@ class AuthService {
       AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
-      
+
       return _useFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
@@ -51,6 +52,10 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
+
+      await DatabaseService(uid: user.uid)
+          .updateUserData('0', 'new crew member', 100);
+
       return _useFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

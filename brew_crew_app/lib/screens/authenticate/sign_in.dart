@@ -85,18 +85,19 @@ class _SignInState extends State<SignIn> {
                       ),
                       RaisedButton(
                         onPressed: () async {
+                          loading = true;
                           if (_formKey.currentState.validate()) {
-                            setState(() => loading = true);
-
                             // print(email);
                             // print(password);
 
                             dynamic result = await _auth
                                 .signInWithEmailAndPassword(email, password);
-                            loading = false;
-
+                            setState(() {
+                              loading = false;
+                            });
                             if (result == null) {
                               setState(() {
+                                loading = false;
                                 error =
                                     'Could not sign in with those credebtials';
                               });
