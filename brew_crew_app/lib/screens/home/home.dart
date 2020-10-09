@@ -53,13 +53,19 @@ class Home extends StatelessWidget {
               ),
               label: Text(
                 'Settings',
-                style: (TextStyle(color: Colors.white)
-                ),
+                style: (TextStyle(color: Colors.white)),
               ),
             )
           ],
         ),
-        body: BrewList(),
+        body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage('assets/coffee_bg.png'),
+              fit: BoxFit.cover,
+              ),
+              
+            ),
+            child: BrewList()),
       ),
     );
   }
