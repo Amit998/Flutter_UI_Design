@@ -1,11 +1,11 @@
 import 'package:e_commerce_ui/components/custom_surfix_icon.dart';
 import 'package:e_commerce_ui/components/default_button.dart';
 import 'package:e_commerce_ui/components/form_error.dart';
+import 'package:e_commerce_ui/screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
-
 
 class CompleteProfileForm extends StatefulWidget {
   @override
@@ -67,14 +67,12 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                   text: "Continue",
                   press: () {
                     if (_formKey.currentState.validate()) {
-                      print("object");
+                      Navigator.pushNamed(context, OtpScreen.routeName);
                     }
                   }),
-                  SizedBox(
-                    height: getProportionScreenHeight(20),
-                  ),
-
-                  
+              SizedBox(
+                height: getProportionScreenHeight(20),
+              ),
             ],
           ),
         ),
@@ -104,7 +102,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         hintText: "Enter Your Address",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(
-          svgIcon: "assets/icons/User.svg",
+          svgIcon: "assets/icons/LocationPoint.svg",
         ),
         // contentPadding: EdgeInsets.symmetric(horizontal: 50,vertical: 20),
       ),

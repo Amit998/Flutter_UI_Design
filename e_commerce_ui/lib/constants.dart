@@ -15,11 +15,10 @@ const kAnimationDuration = Duration(milliseconds: 200);
 // Form Error
 
 final headingStyle = TextStyle(
-  fontSize: getProportionScreenWidth(28),
-  fontWeight: FontWeight.bold,
-  color: Colors.black,
-  height: 1.5
-);
+    fontSize: getProportionScreenWidth(28),
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+    height: 1.5);
 
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -30,7 +29,21 @@ const String kPassNullError = "Please Enter Your Password";
 const String kShortPassError = "Password is too short";
 const String kMatchPassError = "Password Doesn't Match";
 
-
 const String kNameNullError = "Please Enter Your Name";
 const String kPhoneNullError = "Please Enter Your Phone Number ";
 const String kAddressNullError = "Please ENter Your Password";
+
+final otpInput = InputDecoration(
+    contentPadding:
+        EdgeInsets.symmetric(vertical: getProportionScreenWidth(15)),
+      enabledBorder: outlineInputBorder(),
+      focusedBorder: outlineInputBorder(),
+      border: outlineInputBorder()
+  );
+
+OutlineInputBorder outlineInputBorder() {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(15),
+    borderSide: BorderSide(color: kTextColor),
+  );
+}
