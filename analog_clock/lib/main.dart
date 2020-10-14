@@ -12,16 +12,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MyTheme(),
-      child: Consumer<MemoryImage>(
-        builder: (context,theme,child)=> MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Analog Clock',
-        theme: themeData(context),
-        darkTheme: darkThemeData(context),
-        themeMode:  ? ThemeMode.light : ThemeMode.dark,
-        home: HomeScreen(),
-      ),
-    ));
+        create: (context) => MyThemeModel(),
+        child: Consumer<MyThemeModel>(
+          builder: (context, theme, child) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Analog Clock',
+            theme: themeData(context),
+            darkTheme: darkThemeData(context),
+            themeMode: theme.isLightTheme ? ThemeMode.light : ThemeMode.dark,
+            home: HomeScreen(),
+          ),
+        ));
   }
 }

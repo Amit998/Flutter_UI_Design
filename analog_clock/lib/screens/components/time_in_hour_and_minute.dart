@@ -24,11 +24,15 @@ class _TimeHourAndMinuteState extends State<TimeHourAndMinute> {
   @override
   Widget build(BuildContext context) {
     String _period = _timeOfDay.period == DayPeriod.am ? "AM" : "PM";
+
+    dynamic currentminute = _timeOfDay.minute < 10
+        ? "0${_timeOfDay.minute}"
+        : "${_timeOfDay.minute}";
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "${_timeOfDay.hour} : ${_timeOfDay.minute}",
+          "${_timeOfDay.hour} : ${currentminute}",
           style: Theme.of(context).textTheme.headline1,
         ),
         SizedBox(width: 5),
