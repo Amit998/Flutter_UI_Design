@@ -1,5 +1,7 @@
 import 'package:e_commerce_ui/constants.dart';
 import 'package:e_commerce_ui/screens/home/components/searchField.dart';
+import 'package:e_commerce_ui/screens/home/components/sectionTitle.dart';
+import 'package:e_commerce_ui/screens/home/components/specialOffers.dart';
 import 'package:e_commerce_ui/screens/login_success/components/icon_btn_with_search.dart';
 import 'package:e_commerce_ui/size_config.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,13 @@ class Body extends StatelessWidget {
             SizedBox(
               height: getProportionScreenWidth(20),
             ),
+            SpecialOffers(),
+            SizedBox(
+              height: getProportionScreenWidth(20),
+            ),
+            SectionTitle(text: "Popular Section",press: () {
+              
+            },)
 
           ],
         ),
