@@ -1,4 +1,7 @@
 import 'package:e_commerce_ui/constants.dart';
+import 'package:e_commerce_ui/models/Product.dart';
+import 'package:e_commerce_ui/screens/home/components/popular_product.dart';
+import 'package:e_commerce_ui/screens/home/components/product_card.dart';
 import 'package:e_commerce_ui/screens/home/components/searchField.dart';
 import 'package:e_commerce_ui/screens/home/components/sectionTitle.dart';
 import 'package:e_commerce_ui/screens/home/components/specialOffers.dart';
@@ -37,10 +40,8 @@ class Body extends StatelessWidget {
             SizedBox(
               height: getProportionScreenWidth(20),
             ),
-            SectionTitle(text: "Popular Section",press: () {
-              
-            },)
-
+            
+            PopularProduct(),
           ],
         ),
       ),
