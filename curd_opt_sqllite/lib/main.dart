@@ -1,3 +1,5 @@
+import 'package:curd_opt_sqllite/screens/note_details.dart';
+import 'package:curd_opt_sqllite/screens/note_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,26 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Sqllite CURD',
-      home: Home(),
-    );
-  }
-}
-
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
       
-      appBar: AppBar(
-        
-        title: Text("SQLLITE"),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple
       ),
+      home: NoteList(),
     );
   }
 }
+
