@@ -3,7 +3,6 @@ import 'dart:async';
 import 'dart:io' as io;
 import 'package:path_provider/path_provider.dart';
 import '../models/note.dart';
-import 'employee.dart';
 
 class DatabaseHelper {
   static DatabaseHelper _databaseHelper;
@@ -11,7 +10,7 @@ class DatabaseHelper {
 
   String noteTable = 'note_table';
   String colId = 'id';
-  String colTitle = 'colTitle';
+  String colTitle = 'title';
   String colDescription = 'description';
   String colPriority = 'priority';
   String colDate = 'date';
@@ -94,5 +93,18 @@ class DatabaseHelper {
         await db.rawQuery(' SELECT COUNT (*) from $noteTable');
     int result = Sqflite.firstIntValue(x);
     return result;
+  }
+
+  // Get The Map List and convert it into note list
+
+  Future<List<Note>> getNoteList() async {
+    var noteMapList = await getNoteMapList();
+    int count = noteMapList.length;
+    List<Note> noteList = List<Note>();
+
+    for (int i = 0; i < count; i++) {
+      noteList.add(Note.fromMapObject(noteMapList[i]));
+    }
+    return noteList;
   }
 }
