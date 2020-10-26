@@ -1,6 +1,7 @@
 import 'package:curd_opt_sqllite/database/databaseHelper.dart';
 import 'package:curd_opt_sqllite/models/note.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class NoteDetail extends StatefulWidget {
@@ -77,6 +78,7 @@ class _NoteDetailState extends State<NoteDetail> {
                   onChanged: (value) {
                     setState(() {
                       debugPrint('something Changed in the Title field');
+
                       updateTitle();
                     });
                   },
@@ -91,7 +93,7 @@ class _NoteDetailState extends State<NoteDetail> {
               Padding(
                 padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                 child: TextField(
-                  controller: titleController,
+                  controller: descriptionController,
                   style: textStyle,
                   onChanged: (value) {
                     setState(() {
@@ -119,6 +121,7 @@ class _NoteDetailState extends State<NoteDetail> {
                           onPressed: () {
                             setState(() {
                               debugPrint("Save Button Click");
+                              _save();
                             });
                           },
                         ),
@@ -132,6 +135,7 @@ class _NoteDetailState extends State<NoteDetail> {
                           onPressed: () {
                             setState(() {
                               debugPrint("Save Button Click");
+                              _delete();
                             });
                           },
                         ),
@@ -146,7 +150,7 @@ class _NoteDetailState extends State<NoteDetail> {
   }
 
   void movetoLastScreen() {
-    Navigator.pop(context);
+    Navigator.pop(context, true);
   }
 
   void updatePriority(String value) {
@@ -182,7 +186,43 @@ class _NoteDetailState extends State<NoteDetail> {
   }
 
   void _save() async {
+    movetoLastScreen();
+    note.date = DateFormat.yMMMMd().format(DateTime.now());
+    int result;
     if (note.id != null) {
-    } else {}
+      result = await helper.updateNote(note);
+    } else {
+      result = await helper.insertNote(note);
+    }
+    if (result != 0) {
+      _showAlterDialog('status', 'Note Saved Successfully');
+    } else {
+      _showAlterDialog('status', 'Problem Saving Note');
+    }
+  }
+
+  void _delete() async {
+    movetoLastScreen();
+    int result;
+
+    if (note.id != null) {
+      _showAlterDialog('Status', 'No Note Was deleted');
+      return;
+    }
+    result = await helper.deleteNote(note.id);
+
+    if (result != 0) {
+      _showAlterDialog('status', 'Note Deleted Successfully');
+    } else {
+      _showAlterDialog('status', 'Problem Deleting Note');
+    }
+  }
+
+  void _showAlterDialog(String title, String message) {
+    AlertDialog altertDialog = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+    );
+    showDialog(context: context, builder: (_) => altertDialog);
   }
 }

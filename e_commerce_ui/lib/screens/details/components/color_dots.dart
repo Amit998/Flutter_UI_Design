@@ -12,10 +12,10 @@ class ColorDots extends StatelessWidget {
   }) : super(key: key);
 
   final Product product;
-  final selectedColor = 0;
 
   @override
   Widget build(BuildContext context) {
+    int selectedColor = 0;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: getProportionScreenWidth(20)),
       child: Row(
@@ -27,6 +27,7 @@ class ColorDots extends StatelessWidget {
               color: product.colors[index],
               isSeleceted: selectedColor == index,
               selectedColor: selectedColor,
+              position: index,
             ),
           ),
           Spacer(),
@@ -50,13 +51,16 @@ class ColorDot extends StatefulWidget {
     Key key,
     @required this.product,
     this.isSeleceted,
-    this.color, this.selectedColor,
+    this.color,
+    this.selectedColor,
+    this.position,
   }) : super(key: key);
 
   final Product product;
   final bool isSeleceted;
   final Color color;
   final int selectedColor;
+  final int position;
 
   @override
   _ColorDotState createState() => _ColorDotState(this.selectedColor);
@@ -70,7 +74,7 @@ class _ColorDotState extends State<ColorDot> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          print();
+          print('ok');
         });
       },
       child: Container(
