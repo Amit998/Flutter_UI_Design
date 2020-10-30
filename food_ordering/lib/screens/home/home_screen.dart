@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:food_ordering/screens/components/app_bar.dart';
+import 'package:food_ordering/screens/home/body.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -11,13 +11,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: SvgPicture.asset("asset/icons/menu.svg"),
-        ),
-      ),
+      appBar: homeAppBar(context),
+      body: Body(),
     );
   }
 }
