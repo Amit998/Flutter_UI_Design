@@ -1,9 +1,7 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:food_ordering/screens/details/details.dart';
 
 import 'categoris_item.dart';
-
 
 class CategoryList extends StatelessWidget {
   const CategoryList({
@@ -20,15 +18,17 @@ class CategoryList extends StatelessWidget {
           CategortItem(
             title: 'Combo Meal',
             isActive: true,
-            press: () {},
+            press: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return DetailsScreen();
+              }));
+            },
           ),
-
           CategortItem(
             title: 'Chicken',
             isActive: false,
             press: () {},
           ),
-
           CategortItem(
             title: 'Bevarages',
             isActive: false,
