@@ -21,8 +21,9 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-
+  smooth_star_rating: ^1.1.1
   flutter_svg: ^0.19.1
+  
   flutter:
     sdk: flutter
   
