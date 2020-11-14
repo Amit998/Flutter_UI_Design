@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/screens/home/home_screen.dart';
+import 'package:recipe_app/screens/profile/profile_screen.dart';
 
 class NavItem {
   final int id;
@@ -17,11 +18,18 @@ class NavItem {
 }
 
 class NavItems extends ChangeNotifier {
-  int selectedInde = 1;
+  int selectedIndex = 0;
+
+  void navItemsChanger({int index}) {
+    selectedIndex = index;
+    notifyListeners();
+  }
+
   List<NavItem> items = [
     NavItem(id: 1, icon: "assets/icons/home.svg", destination: HomeScreen()),
     NavItem(id: 2, icon: "assets/icons/camera.svg"),
     NavItem(id: 3, icon: "assets/icons/chef_nav.svg"),
     NavItem(id: 4, icon: "assets/icons/user.svg"),
-    NavItem(id: 1, icon: "assets/icons/list.svg"), ];
+    NavItem(id: 1, icon: "assets/icons/list.svg", destination: ProfileScreen()),
+  ];
 }
