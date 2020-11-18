@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yaari_app/widgets/header.dart';
 
 
 class Profile extends StatefulWidget {
@@ -9,7 +10,10 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+      appBar: header(context,titleText:"Profile"),
+      
+      body: Text("Profile"),
       
     );
   }
