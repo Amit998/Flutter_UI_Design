@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
-class Progress extends StatefulWidget {
-  @override
-  _ProgressState createState() => _ProgressState();
+Container circularProgress() {
+  return Container(
+    alignment: Alignment.center,
+    padding: EdgeInsets.only(top: 10.0),
+    child: CircularProgressIndicator(
+      valueColor: AlwaysStoppedAnimation(Colors.purple),
+    ),
+  );
 }
 
-class _ProgressState extends State<Progress> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      
-    );
-  }
+Container linearProgress() {
+  return Container(
+    padding: EdgeInsets.only(bottom: 10.0),
+    child: LinearProgressIndicator(
+      valueColor: AlwaysStoppedAnimation(Colors.purple),
+    ),
+  );
 }
