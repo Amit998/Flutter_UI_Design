@@ -16,18 +16,38 @@ class _TimelineState extends State<Timeline> {
   List<dynamic> users = [];
   @override
   void initState() {
-    
+    // createUser();
+    // updateUser();
+    deleteUser();
     super.initState();
   }
 
-  
+  createUser() async {
+    // usersRef.document("ahjvjhgvjgh").setData({"username": "Rajni Kant", "postsCount": 1, "isAdmin": false});
+  }
+
+  updateUser() async {
+    final doc = await usersRef.document("ahjvjhgvjgh").get();
+    if (doc.exists) {
+      doc.reference.updateData(
+          {"username": "Rajni Kant Singh", "postsCount": 10, "isAdmin": false});
+    }
+    // .updateData({"username": "Rajni Kant Singh", "postsCount": 10, "isAdmin": false});
+  }
+
+  deleteUser() async {
+    final doc = await usersRef.document("ahjvjhgvjgh").get();
+    if (doc.exists) {
+      usersRef.document("ahjvjhgvjgh").delete();
+    }
+  }
 
   @override
   Widget build(context) {
     return Scaffold(
         appBar: header(context, isAppTitle: true),
-        body: FutureBuilder<QuerySnapshot>(
-            future: usersRef.getDocuments(),
+        body: StreamBuilder<QuerySnapshot>(
+            stream: usersRef.snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return circularProgress();
@@ -39,8 +59,6 @@ class _TimelineState extends State<Timeline> {
                   child: ListView(children: children),
                 );
               }
-            }
-        )
-    );
+            }));
   }
 }
