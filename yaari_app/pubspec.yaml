@@ -24,9 +24,21 @@ dependencies:
   flutter:
     sdk: flutter
   # cloud_firestore: ^0.14.3
+  # firebase_messaging: ^7.0.3
+  # firebase_storage: ^5.0.1
+  # firebase_auth: ^0.18.3
+
+
+
+  firebase_storage: ^2.1.0+1
+  firebase_auth: ^0.8.3
+  firebase_messaging: ^4.0.0+1
+  cloud_firestore: ^0.9.7+2
+
+
+
   image_picker: ^0.6.7+14
-  firebase_storage: ^5.0.1
-  firebase_auth: ^0.18.3
+  
   google_sign_in: ^4.5.6
   geolocator: ^6.1.6
   uuid: ^2.2.2
@@ -36,10 +48,24 @@ dependencies:
   cupertino_icons: ^1.0.0
 
   path_provider: ^1.6.24
-  firebase_messaging: ^7.0.3
+
   timeago: ^2.0.28
   cached_network_image: ^2.3.3
   flutter_svg: ^0.19.1
+  # firebase_core: ^0.4.5
+
+  # google_sign_in: ^4.1.1
+  # cloud_firestore: ^0.13.0+1
+  # flutter_svg: ^0.17.1
+  # cached_network_image: ^2.0.0
+  # image_picker: ^0.6.3+1
+  # path_provider: ^1.6.0
+  # firebase_storage: ^3.1.1
+  # uuid: ^2.0.4
+  # geolocator: ^5.2.1
+  # animator: ^1.0.0+4
+  # timeago: ^2.0.26
+  # firebase_messaging: ^6.0.9
 
 
   # The following adds the Cupertino Icons font to your application.

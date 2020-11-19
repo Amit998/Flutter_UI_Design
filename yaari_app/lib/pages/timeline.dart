@@ -1,20 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:yaari_app/widgets/header.dart';
+// import 'package:yaari_app/widgets/progress.dart';
+// import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yaari_app/widgets/progress.dart';
 
+final usersRef = Firestore.instance.collection('users');
 
-class TimeLine extends StatefulWidget {
+class Timeline extends StatefulWidget {
   @override
-  _TimeLineState createState() => _TimeLineState();
+  _TimelineState createState() => _TimelineState();
 }
 
-class _TimeLineState extends State<TimeLine> {
+class _TimelineState extends State<Timeline> {
+  List<dynamic> users = [];
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    
+    super.initState();
+  }
+
+  
+
+  @override
+  Widget build(context) {
     return Scaffold(
-      appBar: header(context,isAppTitle: true,titleText:"YaariApp"),
-      body: circularProgress(),
-      
+        appBar: header(context, isAppTitle: true),
+        body: FutureBuilder<QuerySnapshot>(
+            future: usersRef.getDocuments(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return circularProgress();
+              } else {
+                final List<Text> children = snapshot.data.documents
+                    .map((doc) => Text(doc['username']))
+                    .toList();
+                return Container(
+                  child: ListView(children: children),
+                );
+              }
+            }
+        )
     );
   }
 }
