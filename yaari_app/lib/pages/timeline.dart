@@ -18,12 +18,12 @@ class _TimelineState extends State<Timeline> {
   void initState() {
     // createUser();
     // updateUser();
-    deleteUser();
+    // deleteUser();
     super.initState();
   }
 
   createUser() async {
-    // usersRef.document("ahjvjhgvjgh").setData({"username": "Rajni Kant", "postsCount": 1, "isAdmin": false});
+    usersRef.document("ahjvjhgvjgh").setData({"username": "Rajni Kant", "postsCount": 1, "isAdmin": false});
   }
 
   updateUser() async {

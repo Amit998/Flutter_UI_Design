@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yaari_app/pages/create_accounts.dart';
 
 
 class ActivityFeed extends StatefulWidget {
@@ -9,8 +10,8 @@ class ActivityFeed extends StatefulWidget {
 class _ActivityFeedState extends State<ActivityFeed> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      body: CreateAccount(),      
     );
   }
 }
