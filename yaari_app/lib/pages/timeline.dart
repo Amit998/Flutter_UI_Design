@@ -16,7 +16,7 @@ class _TimelineState extends State<Timeline> {
   List<dynamic> users = [];
   @override
   void initState() {
-    // createUser();
+    createUser();
     // updateUser();
     // deleteUser();
     super.initState();
@@ -56,9 +56,11 @@ class _TimelineState extends State<Timeline> {
                     .map((doc) => Text(doc['username']))
                     .toList();
                 return Container(
-                  child: ListView(children: children),
+                  child: ListView(children:  children),
                 );
               }
-            }));
-  }
-}
+            }
+          )
+        );
+      }
+    }
