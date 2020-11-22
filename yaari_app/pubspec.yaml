@@ -40,7 +40,7 @@ dependencies:
   image_picker: ^0.6.7+14
   
   google_sign_in: ^4.5.6
-  geolocator: ^6.1.6
+  geolocator: ^5.2.1
   uuid: ^2.2.2
   image: ^2.1.18
   animator: ^2.0.1

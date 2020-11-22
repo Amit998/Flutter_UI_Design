@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:yaari_app/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,9 +10,13 @@ import 'package:yaari_app/pages/profile.dart';
 import 'package:yaari_app/pages/search.dart';
 // import 'package:yaari_app/pages/timeline.dart';
 import 'package:yaari_app/pages/upload.dart';
+// import 'package:geolocator/geolocator.dart';
+
 
 final GoogleSignIn googleSignIn = GoogleSignIn();
+final StorageReference storageRef = FirebaseStorage.instance.ref();
 final userRef = Firestore.instance.collection('users');
+final postsRef = Firestore.instance.collection('posts');
 final timeStamp = DateTime.now();
 User currentUser;
 
@@ -130,7 +135,7 @@ class _HomeState extends State<Home> {
           ),
 
           ActivityFeed(),
-          Upload(currentUser:currentUser),
+          Upload(currentUser: currentUser),
           Search(),
           Profile(),
         ],
