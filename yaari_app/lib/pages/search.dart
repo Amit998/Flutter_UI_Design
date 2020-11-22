@@ -79,8 +79,8 @@ class _SearchState extends State<Search> {
   }
 
   Container buildNoContent() {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    // final height = MediaQuery.of(context).size.height;
+    // final width = MediaQuery.of(context).size.width;
     final orientation = MediaQuery.of(context).orientation;
     return Container(
       child: Center(

@@ -7,7 +7,7 @@ import 'package:yaari_app/pages/activity_feed.dart';
 import 'package:yaari_app/pages/create_accounts.dart';
 import 'package:yaari_app/pages/profile.dart';
 import 'package:yaari_app/pages/search.dart';
-import 'package:yaari_app/pages/timeline.dart';
+// import 'package:yaari_app/pages/timeline.dart';
 import 'package:yaari_app/pages/upload.dart';
 
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -87,8 +87,8 @@ class _HomeState extends State<Home> {
       doc = await userRef.document(user.id).get();
     }
     currentUser = User.fromDocument(doc);
-    print(currentUser);
-    print(currentUser.displayName);
+    // print(currentUser);
+    // print(currentUser.displayName);
   }
 
   @override
@@ -130,7 +130,7 @@ class _HomeState extends State<Home> {
           ),
 
           ActivityFeed(),
-          Upload(),
+          Upload(currentUser:currentUser),
           Search(),
           Profile(),
         ],

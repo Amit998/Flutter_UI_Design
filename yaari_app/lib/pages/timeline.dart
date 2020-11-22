@@ -16,14 +16,21 @@ class _TimelineState extends State<Timeline> {
   List<dynamic> users = [];
   @override
   void initState() {
-    createUser();
+    // createUser();
+    getUser();
     // updateUser();
     // deleteUser();
     super.initState();
   }
 
+  getUser() {
+    usersRef.document().get();
+  }
+
   createUser() async {
-    usersRef.document("ahjvjhgvjgh").setData({"username": "Rajni Kant", "postsCount": 1, "isAdmin": false});
+    usersRef
+        .document("ahjvjhgvjgh")
+        .setData({"username": "Rajni Kant", "postsCount": 1, "isAdmin": false});
   }
 
   updateUser() async {
@@ -56,11 +63,9 @@ class _TimelineState extends State<Timeline> {
                     .map((doc) => Text(doc['username']))
                     .toList();
                 return Container(
-                  child: ListView(children:  children),
+                  child: ListView(children: children),
                 );
               }
-            }
-          )
-        );
-      }
-    }
+            }));
+  }
+}
