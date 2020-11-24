@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:yaari_app/pages/timeline.dart';
 import 'package:yaari_app/models/user.dart';
 import 'package:yaari_app/widgets/progress.dart';
+import 'package:yaari_app/pages/home.dart';
 
 class EditProfile extends StatefulWidget {
-  final String currentUser;
-  EditProfile({this.currentUser});
+  final String currentUserId;
+  EditProfile({this.currentUserId});
   @override
   _EditProfileState createState() => _EditProfileState();
 }
@@ -17,6 +18,9 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController bioController = TextEditingController();
   bool isLoading = false;
   User user;
+  bool _displayNameValid = true;
+  bool _bioValid = true;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -28,7 +32,7 @@ class _EditProfileState extends State<EditProfile> {
     setState(() {
       isLoading = true;
     });
-    DocumentSnapshot doc = await usersRef.document(widget.currentUser).get();
+    DocumentSnapshot doc = await usersRef.document(widget.currentUserId).get();
 
     user = User.fromDocument(doc);
     displayNameController.text = user.displayName;
@@ -52,11 +56,42 @@ class _EditProfileState extends State<EditProfile> {
         TextField(
           controller: bioController,
           decoration: InputDecoration(
-            hintText: "Update Bio...",
-          ),
+              hintText: "Update Bio...",
+              errorText: _bioValid ? null : "Bio Csn't be too short"),
         )
       ],
     );
+  }
+
+  updateProfileData() {
+    setState(() {
+      displayNameController.text.length < 3 ||
+              displayNameController.text.isEmpty
+          ? _displayNameValid = false
+          : _displayNameValid = true;
+
+      bioController.text.trim().length > 100
+          ? _bioValid = false
+          : _bioValid = true;
+    });
+
+    if (_displayNameValid && _bioValid) {
+      usersRef.document(widget.currentUserId).updateData({
+        "displayName": displayNameController.text,
+        "bio": bioController.text,
+      });
+
+      SnackBar snackBar = SnackBar(
+        content: Text("Profile Updated"),
+      );
+    }
+  }
+
+  logout() async {
+    await googleSignIn.signOut();
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) => Home();
+    ));
   }
 
   Column buildDisplayName() {
@@ -73,8 +108,8 @@ class _EditProfileState extends State<EditProfile> {
         TextField(
           controller: displayNameController,
           decoration: InputDecoration(
-            hintText: "Update Display Name",
-          ),
+              hintText: "Update Display Name",
+              errorText: _displayNameValid ? null : "Display name too short"),
         )
       ],
     );
@@ -83,6 +118,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -125,36 +161,32 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       SizedBox(height: 10),
                       SizedBox(
-                        
                         height: 50.0,
                         width: 140.0,
                         child: RaisedButton(
-                        
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(color: Theme.of(context).primaryColor)
-                          ),
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(
+                                  color: Theme.of(context).primaryColor)),
                           color: Colors.white,
-                          onPressed: () {
-                            print("Updated Profile Data");
-                          },  
+                          onPressed: updateProfileData,
                           child: Text(
                             "Update Profile",
                             style: TextStyle(
                                 color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.bold),
                           ),
-                              
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(16.0),
                         child: FlatButton.icon(
-                          onPressed: () {
-                            print("logout");
-                          },
-                          icon: Icon(Icons.cancel,color: Colors.red),
-                          label: Text("Log Out",style: TextStyle(color: Colors.red,fontSize: 20.0),),
+                          onPressed: logout,
+                          icon: Icon(Icons.cancel, color: Colors.red),
+                          label: Text(
+                            "Log Out",
+                            style: TextStyle(color: Colors.red, fontSize: 20.0),
+                          ),
                         ),
                       )
                     ],
