@@ -8,10 +8,11 @@ import 'package:yaari_app/pages/activity_feed.dart';
 import 'package:yaari_app/pages/create_accounts.dart';
 import 'package:yaari_app/pages/profile.dart';
 import 'package:yaari_app/pages/search.dart';
+import 'package:yaari_app/pages/timeline.dart';
 // import 'package:yaari_app/pages/timeline.dart';
 import 'package:yaari_app/pages/upload.dart';
+import 'package:yaari_app/widgets/post.dart';
 // import 'package:geolocator/geolocator.dart';
-
 
 final GoogleSignIn googleSignIn = GoogleSignIn();
 final StorageReference storageRef = FirebaseStorage.instance.ref();
@@ -128,16 +129,17 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: PageView(
         children: [
-          // Timeline(),
-          RaisedButton(
-            child: Text("Logout"),
-            onPressed: logout,
-          ),
+          Timeline(),
+          // Post(),
+          // RaisedButton(
+          //   child: Text("Logout"),
+          //   onPressed: logout,
+          // ),
 
           ActivityFeed(),
           Upload(currentUser: currentUser),
           Search(),
-          Profile(profileId:currentUser?.id),
+          Profile(profileId: currentUser?.id),
         ],
         controller: pageController,
         onPageChanged: onPageChanged,
