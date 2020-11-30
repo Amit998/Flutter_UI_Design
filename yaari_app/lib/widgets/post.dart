@@ -9,45 +9,45 @@ class Post extends StatefulWidget {
   final String postId;
   final String ownerId;
   final String username;
-  final String description;
   final String location;
-  final String mediaUrl;
+  final String description;
+  final String mediaURL;
   final dynamic likes;
 
-  const Post(
-      {Key key,
-      this.postId,
-      this.ownerId,
-      this.username,
-      this.description,
-      this.location,
-      this.mediaUrl,
-      this.likes})
-      : super(key: key);
+  Post({
+    this.postId,
+    this.ownerId,
+    this.username,
+    this.location,
+    this.description,
+    this.mediaURL,
+    this.likes,
+  });
 
   factory Post.fromDocument(DocumentSnapshot doc) {
     return Post(
       postId: doc['postId'],
-      ownerId: doc['ownerId'],
+      ownerId: doc['Owner_Id'],
       username: doc['username'],
       location: doc['location'],
       description: doc['description'],
-      mediaUrl: doc['mediaUrl'],
+      mediaURL: doc['mediaURL'],
       likes: doc['likes'],
     );
   }
 
-  int getLikescount(likes) {
+  int getLikeCount(likes) {
+    // if no likes, return 0
     if (likes == null) {
       return 0;
     }
     int count = 0;
-    likes.value.forEach((val) {
+    // if the key is explicitly set to true, add a like
+    likes.values.forEach((val) {
       if (val == true) {
         count += 1;
       }
     });
-
     return count;
   }
 
@@ -58,9 +58,9 @@ class Post extends StatefulWidget {
         username: this.username,
         location: this.location,
         description: this.description,
-        mediaUrl: this.mediaUrl,
+        mediaUrl: this.mediaURL,
         likes: this.likes,
-        likeCount: getLikescount(this.likes),
+        likeCount: getLikeCount(this.likes),
       );
 }
 
@@ -84,6 +84,7 @@ class _PostState extends State<Post> {
     this.likes,
     this.likeCount,
   });
+
   buildPostHeader() {
     return FutureBuilder(
       future: usersRef.document(ownerId).get(),
@@ -92,25 +93,24 @@ class _PostState extends State<Post> {
           return circularProgress();
         }
         User user = User.fromDocument(snapshot.data);
-        print(user);
-        // return Text("user");
-
         return ListTile(
           leading: CircleAvatar(
             backgroundImage: CachedNetworkImageProvider(user.photoUrl),
             backgroundColor: Colors.grey,
           ),
           title: GestureDetector(
-            onTap: () => print("Showing"),
+            onTap: () => print('showing profile'),
             child: Text(
               user.username,
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           subtitle: Text(location),
           trailing: IconButton(
-            onPressed: () => print("object"),
+            onPressed: () => print('deleting post'),
             icon: Icon(Icons.more_vert),
           ),
         );
@@ -120,10 +120,10 @@ class _PostState extends State<Post> {
 
   buildPostImage() {
     return GestureDetector(
-      onDoubleTap: () => print("like"),
+      onDoubleTap: () => print('liking post'),
       child: Stack(
         alignment: Alignment.center,
-        children: [
+        children: <Widget>[
           Image.network(mediaUrl),
         ],
       ),
@@ -132,27 +132,22 @@ class _PostState extends State<Post> {
 
   buildPostFooter() {
     return Column(
-      children: [
+      children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 40.0,left: 20.0),
-            ),
-
+          children: <Widget>[
+            Padding(padding: EdgeInsets.only(top: 40.0, left: 20.0)),
             GestureDetector(
-              onTap: ()=> print("Liked Post"),
+              onTap: () => print('liking post'),
               child: Icon(
                 Icons.favorite_border,
                 size: 28.0,
                 color: Colors.pink,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(right: 20.0), 
-            ),
+            Padding(padding: EdgeInsets.only(right: 20.0)),
             GestureDetector(
-              onTap: ()=> print("Show Comments"),
+              onTap: () => print('showing comments'),
               child: Icon(
                 Icons.chat,
                 size: 28.0,
@@ -162,54 +157,48 @@ class _PostState extends State<Post> {
           ],
         ),
         Row(
-          children: [
+          children: <Widget>[
             Container(
               margin: EdgeInsets.only(left: 20.0),
               child: Text(
                 "$likeCount likes",
-                style: TextStyle(color:Colors.black ,fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            )
+            ),
           ],
         ),
-
-         Row(
-           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
             Container(
               margin: EdgeInsets.only(left: 20.0),
               child: Text(
-                "$username",
-                style: TextStyle(color:Colors.black ,fontWeight: FontWeight.bold),
+                "$username ",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            Expanded(
-              child: Text("$description"),
-            )
+            Expanded(child: Text(description))
           ],
         ),
-
       ],
     );
   }
- 
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          buildPostHeader(),
-          Divider(height: 0.0),
-
-         
-
-          buildPostImage(),
-          buildPostFooter(),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        buildPostHeader(),
+        buildPostImage(),
+        buildPostFooter()
+      ],
     );
   }
 }

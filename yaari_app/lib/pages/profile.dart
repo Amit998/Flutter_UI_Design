@@ -12,16 +12,17 @@ import 'package:yaari_app/pages/home.dart';
 
 class Profile extends StatefulWidget {
   final String profileId;
+
   Profile({this.profileId});
+
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  final String currentUserid = currentUser?.id;
+  final String currentUserId = currentUser?.id;
   bool isLoading = false;
   int postCount = 0;
-
   List<Post> posts = [];
 
   @override
@@ -36,10 +37,9 @@ class _ProfileState extends State<Profile> {
     });
     QuerySnapshot snapshot = await postsRef
         .document(widget.profileId)
-        .collection('usersPosts')
-        .orderBy('timestamp', descending: true)
+        .collection('userPosts')
+        .orderBy('timesramp', descending: true)
         .getDocuments();
-
     setState(() {
       isLoading = false;
       postCount = snapshot.documents.length;
@@ -47,21 +47,55 @@ class _ProfileState extends State<Profile> {
     });
   }
 
+  Column buildCountColumn(String label, int count) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          count.toString(),
+          style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 4.0),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 15.0,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  editProfile() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EditProfile(currentUserId: currentUserId)));
+  }
+
   Container buildButton({String text, Function function}) {
     return Container(
-      padding: EdgeInsets.only(top: 20.0),
+      padding: EdgeInsets.only(top: 2.0),
       child: FlatButton(
         onPressed: function,
         child: Container(
-          width: 220.0,
-          height: 40.0,
+          width: 250.0,
+          height: 27.0,
           child: Text(
             text,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Theme.of(context).accentColor,
+            color: Colors.blue,
             border: Border.all(
               color: Colors.blue,
             ),
@@ -72,140 +106,112 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Column buildCountColumn(String lable, int count) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          count.toString(),
-          style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 4),
-          child: Text(
-            lable,
-            style: TextStyle(
-                color: Colors.grey,
-                fontSize: 15.0,
-                fontWeight: FontWeight.w400),
-          ),
-        )
-      ],
-    );
-  }
-
-  editProfile() {
-    // print("edit");
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => EditProfile(currentUserId: currentUserid)));
-  }
-
   buildProfileButton() {
-    bool isProfileOwner = currentUserid == widget.profileId;
+    // viewing your own profile - should show edit profile button
+    bool isProfileOwner = currentUserId == widget.profileId;
     if (isProfileOwner) {
-      return buildButton(
-          text: "Edit Profile",
-          function: () {
-            editProfile();
-          });
+      return buildButton(text: "Edit Profile", function: editProfile);
     }
-    // Viewing your own profile
   }
 
   buildProfileHeader() {
     return FutureBuilder(
-        future: usersRef.document(widget.profileId).get(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return circularProgress();
-          }
-          User user = User.fromDocument(snapshot.data);
-          return Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 40.0,
-                      backgroundColor: Colors.grey,
-                      backgroundImage:
-                          CachedNetworkImageProvider(user.photoUrl),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              buildCountColumn("posts", postCount),
-                              buildCountColumn("followers", 0),
-                              buildCountColumn("following", 0),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              buildProfileButton(),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(top: 12.0),
-                  child: Text(
-                    user.username,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
+      future: usersRef.document(widget.profileId).get(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return circularProgress();
+        }
+        User user = User.fromDocument(snapshot.data);
+        return Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 40.0,
+                    backgroundColor: Colors.grey,
+                    backgroundImage: CachedNetworkImageProvider(user.photoUrl),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            buildCountColumn("posts", postCount),
+                            buildCountColumn("followers", 0),
+                            buildCountColumn("following", 0),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            buildProfileButton(),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(top: 4.0),
-                  child: Text(
-                    user.displayName,
-                    style:
-                        TextStyle(fontWeight: FontWeight.w200, fontSize: 16.0),
+                ],
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.only(top: 12.0),
+                child: Text(
+                  user.username,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0,
                   ),
                 ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(top: 2.0),
-                  child: Text(
-                    user.bio,
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.only(top: 4.0),
+                child: Text(
+                  user.displayName,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
-            ),
-          );
-        });
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.only(top: 2.0),
+                child: Text(
+                  user.bio,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   buildProfilePosts() {
     if (isLoading) {
       return circularProgress();
     }
-    return Column(children: posts);
+    return Column(
+      children: posts,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: header(context, titleText: "Profile"),
       body: ListView(
-        children: [
+        children: <Widget>[
           buildProfileHeader(),
+          Divider(
+            height: 0.0,
+          ),
           buildProfilePosts(),
         ],
       ),

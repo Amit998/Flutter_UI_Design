@@ -11,7 +11,7 @@ import 'package:yaari_app/pages/search.dart';
 import 'package:yaari_app/pages/timeline.dart';
 // import 'package:yaari_app/pages/timeline.dart';
 import 'package:yaari_app/pages/upload.dart';
-import 'package:yaari_app/widgets/post.dart';
+
 // import 'package:geolocator/geolocator.dart';
 
 final GoogleSignIn googleSignIn = GoogleSignIn();
