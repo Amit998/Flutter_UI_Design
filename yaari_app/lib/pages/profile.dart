@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:yaari_app/models/user.dart';
 import 'package:yaari_app/pages/edit_profile.dart';
 // import 'package:yaari_app/pages/edit_profile.dart';
 import 'package:yaari_app/pages/timeline.dart';
 import 'package:yaari_app/widgets/header.dart';
 import 'package:yaari_app/widgets/post.dart';
+import 'package:yaari_app/widgets/post_tile.dart';
 import 'package:yaari_app/widgets/progress.dart';
 import 'package:yaari_app/pages/home.dart';
 
@@ -20,6 +22,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String postOrientation = "grid";
   final String currentUserId = currentUser?.id;
   bool isLoading = false;
   int postCount = 0;
@@ -195,20 +198,100 @@ class _ProfileState extends State<Profile> {
   buildProfilePosts() {
     if (isLoading) {
       return circularProgress();
+    }else if(posts.isEmpty){
+      return Container(
+      color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset("assets/images/no_content.svg", height: 260),
+          Padding(
+            padding: EdgeInsets.only(top: 20.0),
+              child: Text(
+                "No Posts",
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold  
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+
     }
-    return Column(
-      children: posts,
+     else if (postOrientation == "grid") {
+      List<GridTile> gridTiles = [];
+      posts.forEach((post) {
+        gridTiles.add(GridTile(
+          child: PostTile(post),
+        ));
+      });
+
+      return GridView.count(
+        crossAxisCount: 3,
+        childAspectRatio: 1.0,
+        mainAxisSpacing: 1.5,
+        crossAxisSpacing: 1.5,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        children: gridTiles,
+      );
+    } else if (postOrientation != "grid") {
+      return Column(
+        children: posts,
+      );
+    }
+
+    // return PostTile(posts);
+    // return Column(
+    //   children: posts,
+    // );
+  }
+
+  setPostOrientation(String name) {
+    setState(() {
+      postOrientation = name;
+      // isGridActive = true;
+    });
+  }
+
+  buildTogglePostOrientation() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        IconButton(
+          icon: Icon(Icons.grid_on,
+              color: postOrientation == 'grid'
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey),
+          onPressed: () {
+            setPostOrientation("grid");
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.list,
+              color: postOrientation == 'list'
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey),
+          onPressed: () {
+            setPostOrientation("list");
+          },
+        ),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: header(context, titleText: "Profile"),
       body: ListView(
         children: <Widget>[
           buildProfileHeader(),
+          Divider(),
+          buildTogglePostOrientation(),
           Divider(
             height: 0.0,
           ),

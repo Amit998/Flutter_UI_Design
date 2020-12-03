@@ -120,11 +120,11 @@ class _PostState extends State<Post> {
 
   buildPostImage() {
     return GestureDetector(
-      onDoubleTap: () => print('liking post'),
+      onDoubleTap: () => print('liked post'),
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Image.network(mediaUrl),
+          CachedNetworkImage(imageUrl: mediaUrl)
         ],
       ),
     );
