@@ -47,7 +47,7 @@ class CommentsState extends State<Comments> {
           // print('doc');
           comments.add(Comment.fromDocument(doc));
         });
-        print('comments');
+        // print('comments');
         return ListView(
           children: comments,
         );
@@ -63,6 +63,19 @@ class CommentsState extends State<Comments> {
       "avatarUrl": currentUser.photoUrl,
       "userId": currentUser.id
     });
+    bool isNotPostOwner = postOwnerId != currentUser.id;
+    if(isNotPostOwner){
+    activityFeedRef.document(postOwnerId).collection('feedItems').add({
+      "type": "comment",
+      "commentData": commentController.text,
+      "username": currentUser.username,
+      "userId": currentUser.id,
+      "userProfileImg": currentUser.photoUrl,
+      "postId": postId,
+      "mediaUrl": mediaUrl,
+      "timestamp": timeStamp
+    });
+    }
 
     commentController.clear();
   }

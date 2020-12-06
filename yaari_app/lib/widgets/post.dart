@@ -134,6 +134,8 @@ class _PostState extends State<Post> {
           .collection("userPosts")
           .document(postId)
           .updateData({'likes.$currentUserId': false});
+
+      removeLikeToActivityFeed();
       setState(() {
         likeCount -= 1;
         isLiked = false;
@@ -145,6 +147,7 @@ class _PostState extends State<Post> {
           .collection("userPosts")
           .document(postId)
           .updateData({'likes.$currentUserId': true});
+      addLikeToActivityFeed();
       setState(() {
         likeCount += 1;
         isLiked = true;
@@ -157,6 +160,44 @@ class _PostState extends State<Post> {
         showHeart = false;
       });
     });
+  }
+
+  removeLikeToActivityFeed() {
+    bool isNotPostOwner = currentUserId != ownerId;
+    if(isNotPostOwner){
+      activityFeedRef
+        .document(ownerId)
+        .collection("feedItems")
+        .document(postId)
+        .get()
+        .then((doc) {
+      if (doc.exists) {
+        doc.reference.delete();
+      }
+    });
+    }
+    
+  }
+
+  addLikeToActivityFeed() {
+    // add a notification to the postOwner's activity feed if comment made by other user(to avoid getting notification for only own like)
+
+    bool isNotPostOwner = currentUserId != ownerId;
+    if(isNotPostOwner){
+      activityFeedRef
+        .document(ownerId)
+        .collection("feedItems")
+        .document(postId)
+        .setData({
+      "type": "like",
+      "username": currentUser.username,
+      "userId": currentUser.id,
+      "userProfileImg": currentUser.photoUrl,
+      "postId": postId,
+      "mediaUrl": mediaUrl,
+      "timestamp": timeStamp
+    });
+    }
   }
 
   buildPostImage() {
@@ -275,10 +316,6 @@ class _PostState extends State<Post> {
 showComments(BuildContext context,
     {String postId, String ownerId, String mediaUrl}) {
   Navigator.push(context, MaterialPageRoute(builder: (context) {
-    return Comments(
-      postId:postId,
-      postOwnerId:ownerId,
-      mediaUrl:mediaUrl
-    );
+    return Comments(postId: postId, postOwnerId: ownerId, mediaUrl: mediaUrl);
   }));
 }
