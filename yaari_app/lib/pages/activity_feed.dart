@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:yaari_app/pages/post_screen.dart';
+import 'package:yaari_app/pages/profile.dart';
 import 'package:yaari_app/widgets/header.dart';
 import 'package:yaari_app/pages/home.dart';
 import 'package:yaari_app/widgets/progress.dart';
@@ -89,10 +91,20 @@ class ActivityFeedItem extends StatelessWidget {
     );
   }
 
-  configureMediaPreview() {
+  showPost(context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PostScreen(
+                  postId: postId,
+                  userId: userId,
+                )));
+  }
+
+  configureMediaPreview(context) {
     if (type == 'like' || type == 'comment') {
       mediaPreview = GestureDetector(
-        onTap: () => print("Showning Post"),
+        onTap: () => showPost(context),
         child: Container(
           width: 50.0,
           height: 50.0,
@@ -114,7 +126,7 @@ class ActivityFeedItem extends StatelessWidget {
       activityItemText = " Liked Your Post";
     } else if (type == 'follow') {
       activityItemText = " is following you";
-    } else if (type == 'comment') {   
+    } else if (type == 'comment') {
       activityItemText = " replied: $commentData";
     } else {
       activityItemText = ' Error:  unkown type $type';
@@ -123,14 +135,14 @@ class ActivityFeedItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    configureMediaPreview();
+    configureMediaPreview(context);
     return Padding(
       padding: EdgeInsets.only(bottom: 2.0),
       child: Container(
         color: Colors.white54,
         child: ListTile(
           title: GestureDetector(
-            onTap: () => print("show profile"),
+            onTap: () => showProfile(context,profileId: userId),
             child: RichText(
               overflow: TextOverflow.ellipsis,
               text: TextSpan(
@@ -155,4 +167,15 @@ class ActivityFeedItem extends StatelessWidget {
       ),
     );
   }
+}
+
+showProfile(BuildContext context, {String profileId}) {
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (contect) => Profile(
+                profileId: profileId,
+              )
+            )
+        );
 }

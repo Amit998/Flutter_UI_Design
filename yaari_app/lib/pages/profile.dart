@@ -114,6 +114,8 @@ class _ProfileState extends State<Profile> {
     bool isProfileOwner = currentUserId == widget.profileId;
     if (isProfileOwner) {
       return buildButton(text: "Edit Profile", function: editProfile);
+    } else {
+      return Text("data");
     }
   }
 
@@ -198,30 +200,27 @@ class _ProfileState extends State<Profile> {
   buildProfilePosts() {
     if (isLoading) {
       return circularProgress();
-    }else if(posts.isEmpty){
+    } else if (posts.isEmpty) {
       return Container(
-      color: Colors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset("assets/images/no_content.svg", height: 260),
-          Padding(
-            padding: EdgeInsets.only(top: 20.0),
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset("assets/images/no_content.svg", height: 260),
+            Padding(
+              padding: EdgeInsets.only(top: 20.0),
               child: Text(
                 "No Posts",
                 style: TextStyle(
-                  color: Colors.redAccent,
-                  fontSize: 40.0,
-                  fontWeight: FontWeight.bold  
-                ),
+                    color: Colors.redAccent,
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold),
               ),
             ),
-        ],
-      ),
-    );
-
-    }
-     else if (postOrientation == "grid") {
+          ],
+        ),
+      );
+    } else if (postOrientation == "grid") {
       List<GridTile> gridTiles = [];
       posts.forEach((post) {
         gridTiles.add(GridTile(

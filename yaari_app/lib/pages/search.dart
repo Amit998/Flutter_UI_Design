@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:yaari_app/models/user.dart';
+import 'package:yaari_app/pages/activity_feed.dart';
 import 'package:yaari_app/widgets/progress.dart';
 import '../pages/home.dart';
 
@@ -18,7 +19,7 @@ class _SearchState extends State<Search> {
   handleSearch(String query) {
     Future<QuerySnapshot> users = userRef
         // .where("displayName", isGreaterThanOrEqualTo: query)
-        .where("username",isGreaterThanOrEqualTo: query)
+        .where("username", isGreaterThanOrEqualTo: query)
         .getDocuments();
     setState(() {
       searcResultFuture = users;
@@ -32,21 +33,15 @@ class _SearchState extends State<Search> {
           if (!snapshot.hasData) {
             print(snapshot.data);
             return circularProgress();
-          } else if (snapshot.data == 'null' ) {
-            print('inside null');
           }
           List<UserResult> searchResults = [];
-          print((snapshot.data.toString()));
-          print("out");
           snapshot.data.documents.forEach((doc) {
             User userData = User.fromDocument(doc);
             UserResult searchResult = UserResult(userData);
             searchResults.add(searchResult);
           });
           return ListView(
-            children: [
-              searchResults.first,
-            ],
+            children: searchResults,
           );
         });
   }
@@ -81,23 +76,24 @@ class _SearchState extends State<Search> {
   Container buildNoContent() {
     // final height = MediaQuery.of(context).size.height;
     // final width = MediaQuery.of(context).size.width;
-    final orientation = MediaQuery.of(context).orientation;
+    final Orientation orientation = MediaQuery.of(context).orientation;
     return Container(
       child: Center(
         child: ListView(
+          shrinkWrap: true,
           children: [
             SvgPicture.asset(
               "assets/images/search.svg",
-              height: orientation == Orientation.portrait ? 300.0 : 200,
+              height: orientation == Orientation.portrait ? 300.0 : 200.0,
             ),
             Text(
               "Find User",
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   fontStyle: FontStyle.italic,
-                  fontSize: 60),
+                  fontSize: 60.0),
             ),
           ],
         ),
@@ -107,7 +103,7 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    print(searcResultFuture);
+    // print(searcResultFuture);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
       appBar: buildSearchBar(),
@@ -128,7 +124,7 @@ class UserResult extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => print('tapped'),
+            onTap: () => showProfile(context, profileId: user.id),
             child: ListTile(
               leading: CircleAvatar(
                 backgroundColor: Colors.grey,
