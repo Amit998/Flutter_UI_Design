@@ -64,17 +64,17 @@ class CommentsState extends State<Comments> {
       "userId": currentUser.id
     });
     bool isNotPostOwner = postOwnerId != currentUser.id;
-    if(isNotPostOwner){
-    activityFeedRef.document(postOwnerId).collection('feedItems').add({
-      "type": "comment",
-      "commentData": commentController.text,
-      "username": currentUser.username,
-      "userId": currentUser.id,
-      "userProfileImg": currentUser.photoUrl,
-      "postId": postId,
-      "mediaUrl": mediaUrl,
-      "timestamp": timeStamp
-    });
+    if (isNotPostOwner) {
+      activityFeedRef.document(postOwnerId).collection('feedItems').add({
+        "type": "comment",
+        "commentData": commentController.text,
+        "username": currentUser.username,
+        "userId": currentUser.id,
+        "userProfileImg": currentUser.photoUrl,
+        "postId": postId,
+        "mediaUrl": mediaUrl,
+        "timestamp": timeStamp
+      });
     }
 
     commentController.clear();
@@ -131,15 +131,35 @@ class Comment extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    print('$username uname');
+    // print('$username uname');
+   
     return Column(
       children: [
         ListTile(
-          title: Text(comment),
+          title: RichText(
+            
+              text: TextSpan(
+                
+                style: TextStyle(fontSize: 16.0,color: Colors.black),
+                children: [
+                TextSpan(text: "$username \n",style: TextStyle(fontWeight: FontWeight.bold)),
+                
+                TextSpan(text: comment,style: TextStyle(fontSize: 15.0))
+              ]
+            )
+          ),
           leading: CircleAvatar(
             backgroundImage: CachedNetworkImageProvider(avatarUrl),
           ),
-          subtitle: Text(timeago.format(timestamp.toDate())),
+          
+          
+          subtitle: Row(
+            children: [
+              SizedBox(height: 30.0),
+              Text(timeago.format(timestamp.toDate()))
+            ],
+          ),
+          isThreeLine: true,
         ),
         Divider(),
       ],
