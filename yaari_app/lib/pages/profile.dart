@@ -330,7 +330,8 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(
                     color: Colors.redAccent,
                     fontSize: 40.0,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold
+                ),
               ),
             ),
           ],

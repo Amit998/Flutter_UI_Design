@@ -98,7 +98,9 @@ class ActivityFeedItem extends StatelessWidget {
             builder: (context) => PostScreen(
                   postId: postId,
                   userId: userId,
-                )));
+                )
+              )
+            );
   }
 
   configureMediaPreview(context) {
@@ -152,7 +154,8 @@ class ActivityFeedItem extends StatelessWidget {
                         text: username,
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     TextSpan(text: '$activityItemText')
-                  ]),
+                  ]
+                ),
             ),
           ),
           leading: CircleAvatar(

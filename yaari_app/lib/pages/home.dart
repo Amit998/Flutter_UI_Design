@@ -23,6 +23,7 @@ final activityFeedRef = Firestore.instance.collection('feed');
 
 final followersRef = Firestore.instance.collection('followers');
 final followingRef = Firestore.instance.collection('following');
+final timelineRef = Firestore.instance.collection('timeline');
 
 final timeStamp = DateTime.now();
 User currentUser;
@@ -135,7 +136,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: PageView(
         children: [
-          Timeline(),
+          Timeline(currentUser: currentUser),
           // Post(),
           // RaisedButton(
           //   child: Text("Logout"),
