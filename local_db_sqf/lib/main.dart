@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
                 onPressed: () async {
                   int updatedId = await DatabaseHelper.intance.update({
                     DatabaseHelper.columnId: 12,
-                    DatabaseHelper.columnName: 'Mark',
+                    DatabaseHelper.columnName: 'Shirley',
                   });
                   print(updatedId);
                 },
