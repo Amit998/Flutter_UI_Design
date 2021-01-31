@@ -14,20 +14,23 @@ class ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 35,
+      height: 30,
       decoration: BoxDecoration(
         border: Border.all(color: Color(0xFF3F4768), width: 3),
         borderRadius: BorderRadius.circular(50),
       ),
-      child: GetBuilder<QustionController>(
-          init: QustionController(),
+      child: GetBuilder<QuestionController>(
+          init: QuestionController(),
           builder: (controller) {
-            print(controller.animation.value);
+            // print(controller.animation.value);
+            // print("object");
             return Stack(
               children: [
                 LayoutBuilder(
                   builder: (context, constraints) => Container(
-                    width: constraints.maxWidth * 0.5,
+                    width: constraints.maxWidth * controller.animation.value,
+                    // width: 1 * 0.5,
+                    // width: constraints.maxWidth ,
                     decoration: BoxDecoration(
                         gradient: kPrimaryGradient,
                         borderRadius: BorderRadius.circular(50)),
@@ -40,8 +43,9 @@ class ProgressBar extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                            "${(controller.animation.value * 60).round()} Sec"),
+                        Text("${(controller.animation.value * 60).round()} Sec"
+                            // "12"
+                            ),
                         WebsafeSvg.asset("assets/icons/clock.svg")
                       ],
                     ),
