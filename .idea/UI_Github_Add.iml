@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="GEN_FOLDER_RELATIVE_PATH_APT" value="/../../UI_Github_Add/gen" />
+        <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/../../UI_Github_Add/gen" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/../../UI_Github_Add/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/../../UI_Github_Add/res" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/../../UI_Github_Add/assets" />
+        <option name="LIBS_FOLDER_RELATIVE_PATH" value="/../../UI_Github_Add/libs" />
+        <option name="PROGUARD_LOGS_FOLDER_RELATIVE_PATH" value="/../../UI_Github_Add/proguard_logs" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
+      <excludeFolder url="file://$MODULE_DIR$/analog_clock/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/analog_clock/build" />
+      <excludeFolder url="file://$MODULE_DIR$/brew_crew_app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/brew_crew_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/calling_app_ui/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/calling_app_ui/build" />
+      <excludeFolder url="file://$MODULE_DIR$/covid_19_app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/covid_19_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/curd_opt_sqllite/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/curd_opt_sqllite/build" />
+      <excludeFolder url="file://$MODULE_DIR$/e_commerce_ui/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/e_commerce_ui/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ebook_app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ebook_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/food_ordering/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/food_ordering/build" />
+      <excludeFolder url="file://$MODULE_DIR$/id_card/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/id_card/build" />
+      <excludeFolder url="file://$MODULE_DIR$/layout_basic/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/layout_basic/build" />
+      <excludeFolder url="file://$MODULE_DIR$/local_db_sqf/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/local_db_sqf/build" />
+      <excludeFolder url="file://$MODULE_DIR$/pdf_upload/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/pdf_upload/build" />
+      <excludeFolder url="file://$MODULE_DIR$/profile_ui/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/profile_ui/build" />
+      <excludeFolder url="file://$MODULE_DIR$/quiz_app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/quiz_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/recipe_app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/recipe_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/world_time_app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/world_time_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/yaari_app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/yaari_app/build" />
+    </content>
+    <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
