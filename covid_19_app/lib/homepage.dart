@@ -8,7 +8,7 @@ import 'package:covid_19_app/panels/worldwidepanel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 // import 'package:async/async.dart';
-
+import 'package:dynamic_theme/dynamic_theme.dart';
 // import '';
 
 class HomePage extends StatefulWidget {
@@ -31,8 +31,8 @@ class _HomePageState extends State<HomePage> {
   List countryData;
 
   fetchCountryData() async {
-    http.Response response =
-        await http.get('https://corona.lmao.ninja/v3/covid-19/countries');
+    http.Response response = await http
+        .get('https://corona.lmao.ninja/v3/covid-19/countries?sort=cases');
 
     print(response);
 
@@ -54,8 +54,23 @@ class _HomePageState extends State<HomePage> {
     // double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(
+              Theme.of(context).brightness == Brightness.light
+                  ? Icons.lightbulb_outline
+                  : Icons.highlight,
+            ),
+            onPressed: () {
+              DynamicTheme.of(context).setBrightness(
+                  Theme.of(context).brightness == Brightness.light
+                      ? Brightness.dark
+                      : Brightness.light);
+            },
+          )
+        ],
         centerTitle: true,
-        title: Text("Covid-19"),
+        title: Text("Covid-19 TRACKER"),
         backgroundColor: Colors.black87,
       ),
       body: SingleChildScrollView(
