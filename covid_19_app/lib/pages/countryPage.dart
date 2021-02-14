@@ -30,7 +30,7 @@ class _CountryPageState extends State<CountryPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(countryData);
+    // print(countryData);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -95,7 +95,10 @@ class _CountryPageState extends State<CountryPage> {
                                     ' Deaths : ${countryData[index]['deaths']}',
                                     style: TextStyle(
                                         fontSize: 16,
-                                        color: Theme.of(context).brightness==Brightness.dark?Colors.grey[100]:Colors.grey[900],
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.grey[100]
+                                            : Colors.grey[900],
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
@@ -106,7 +109,7 @@ class _CountryPageState extends State<CountryPage> {
                                         color: Colors.green),
                                   ),
                                   Text(
-                                    ' Confirmed : ${countryData[index]['cases']}',
+                                    ' Confirmed : ${countryData[index]['todayCases']}',
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.red,

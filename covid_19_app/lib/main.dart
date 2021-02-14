@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
                 ? Brightness.light
                 : Brightness.dark,
             scaffoldBackgroundColor: brightness == Brightness.dark
-                ? Colors.blueGrey[900]
+                ? Colors.grey[900]
                 : Colors.white);
       },
       themedWidgetBuilder: (context, theme) {
