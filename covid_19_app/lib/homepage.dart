@@ -141,20 +141,23 @@ class _HomePageState extends State<HomePage> {
                   : WorldWidePanel(
                       worldData: worldData,
                     ),
-              PieChart(
-                dataMap: {
-                  'Confirmed': worldData['cases'].toDouble(),
-                  'Active': worldData['active'].toDouble(),
-                  'Recovered': worldData['recovered'].toDouble(),
-                  'Death': worldData['deaths'].toDouble(),
-                }, 
-                colorList: [
-                  Colors.red,
-                  Colors.green,
-                  Colors.yellow,
-                  Colors.black,
-                ],
-              ),
+              SizedBox(height: 10),
+              worldData == null
+                  ? CircularProgressIndicator()
+                  : PieChart(
+                      dataMap: {
+                        'Confirmed': worldData['todayCases'].toDouble(),
+                        'Active': worldData['active'].toDouble(),
+                        'Recovered': worldData['recovered'].toDouble(),
+                        'Death': worldData['deaths'].toDouble(),
+                      },
+                      colorList: [
+                        Colors.red,
+                        Colors.green,
+                        Colors.yellow,
+                        Colors.black,
+                      ],
+                    ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
