@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/colors.dart';
+import 'package:music_player/main.dart';
+import 'package:music_player/model/myaudio.dart';
+import 'package:provider/provider.dart';
 
 class PlayerControles extends StatelessWidget {
   @override
@@ -10,9 +13,7 @@ class PlayerControles extends StatelessWidget {
         children: [
           Controls(icon: Icons.repeat),
           Controls(icon: Icons.skip_previous),
-          PlayControl(
-            icon: Icons.play_arrow,
-          ),
+          PlayControl(),
           Controls(
             icon: Icons.skip_next,
           ),
@@ -26,46 +27,61 @@ class PlayerControles extends StatelessWidget {
 }
 
 class PlayControl extends StatelessWidget {
-  final IconData icon;
-
-  const PlayControl({Key key, this.icon}) : super(key: key);
+  const PlayControl({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: 100,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        boxShadow: shadowList,
-        color: primaryColor,
-      ),
-      child: Stack(
-        children: [
-          Center(
-            child: Container(
-              margin: EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                  color: darkPrimaryColor,
-                  shape: BoxShape.circle,
-                  boxShadow: shadowList),
-            ),
+    return Consumer<MyAudio>(
+      builder: (_, myAudioModel, child) => GestureDetector(
+        onTap: () {
+          // myAudioModel.playAudio();
+          // if (myAudioModel.audioState == 'Playing') {
+          //   myAudioModel.pauseAudio();
+          // } else if (myAudioModel.audioState == 'Paused') {
+          //   myAudioModel.playAudio();
+          // }
+          myAudioModel.audioState == 'Playing'
+              ? myAudioModel.pauseAudio()
+              : myAudioModel.playAudio();
+        },
+        child: Container(
+          height: 100,
+          width: 100,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: shadowList,
+            color: primaryColor,
           ),
-          Center(
-            child: Container(
-              margin: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                  color: primaryColor,
-                  shape: BoxShape.circle,
-                  boxShadow: shadowList),
-              child: Center(
-                child: Icon(
-                  icon,
-                  size: 50,
+          child: Stack(
+            children: [
+              Center(
+                child: Container(
+                  margin: EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                      color: darkPrimaryColor,
+                      shape: BoxShape.circle,
+                      boxShadow: shadowList),
                 ),
               ),
-            ),
-          )
-        ],
+              Center(
+                child: Container(
+                  margin: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                      color: primaryColor,
+                      shape: BoxShape.circle,
+                      boxShadow: shadowList),
+                  child: Center(
+                    child: Icon(
+                      myAudioModel.audioState == 'Playing'
+                          ? Icons.pause
+                          : Icons.play_arrow,
+                      size: 50,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
