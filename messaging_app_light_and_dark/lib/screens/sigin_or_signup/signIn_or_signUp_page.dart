@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:messaging_app_light_and_dark/components/primary_button.dart';
 import 'package:messaging_app_light_and_dark/constants.dart';
+import 'package:messaging_app_light_and_dark/models/ChatMessage.dart';
+import 'package:messaging_app_light_and_dark/screens/chats/chats_screen.dart';
 
 class SignIn_or_SignUp extends StatelessWidget {
   @override
@@ -19,7 +21,15 @@ class SignIn_or_SignUp extends StatelessWidget {
                 height: 146,
               ),
               Spacer(),
-              PrimaryButton(text: "Sign In", press: () {}),
+              PrimaryButton(
+                  text: "Sign In",
+                  press: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChatScreen(),
+                        ));
+                  }),
               SizedBox(
                 height: 10,
               ),
