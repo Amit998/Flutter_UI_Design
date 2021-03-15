@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Flutter Chat Demo",
       debugShowCheckedModeBanner: false,
-      theme: lightThemeData(context),
+      theme: darkThemeData(context),
       darkTheme: darkThemeData(context),
       // themeMode: ThemeMode.light,
       home: WelcomeScreen(),

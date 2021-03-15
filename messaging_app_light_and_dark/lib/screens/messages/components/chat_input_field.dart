@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
-
 class ChatInputField extends StatelessWidget {
   const ChatInputField({
     Key key,
@@ -20,8 +19,8 @@ class ChatInputField extends StatelessWidget {
           boxShadow: [
             BoxShadow(
                 offset: Offset(0, 2),
-                blurRadius: 32,
-                color: Color(0xFF087949).withOpacity(0.8))
+                blurRadius: 20,
+                color: Color(0xFF087949).withOpacity(0.5))
           ]),
       child: SafeArea(
         child: Row(
@@ -56,8 +55,7 @@ class ChatInputField extends StatelessWidget {
                     Expanded(
                       child: TextField(
                         decoration: InputDecoration(
-                            hintText: "Type Message",
-                            border: InputBorder.none),
+                            hintText: "Type Message", border: InputBorder.none),
                       ),
                     ),
                     Icon(
