@@ -1,52 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/screens/details/components/doublebutton.dart';
+import 'package:plant_app/screens/details/components/icon_card.dart';
+import 'package:plant_app/screens/details/components/imageAndIcons.dart';
+import 'package:plant_app/screens/details/components/titlewithPrice.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-                child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.arrow_back)),
-                )
-              ],
-            )),
-            Container(
-              height: size.height * 0.8,
-              width: size.width * 0.75,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(63),
-                    bottomLeft: Radius.circular(63),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: Offset(0, 10),
-                        blurRadius: 60,
-                        color: kPrimaryColor.withOpacity(0.29))
-                  ],
-                  image: DecorationImage(
-                      alignment: Alignment.centerLeft,
-                      fit: BoxFit.cover,
-                      image: AssetImage("assets/images/img.png"))),
-            )
-          ],
-        )
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ImageAndIcons(),
+          TitleWithPrice(
+            price: 400,
+            name: "Anglica",
+            country: "Russia",
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          DoubleButton(size: size),
+          SizedBox(
+            height: kDefaultPadding,
+          )
+        ],
+      ),
     );
   }
 }
