@@ -9,7 +9,7 @@ class Chart extends StatelessWidget {
     required this.paiCharSelectionData,
   }) : super(key: key);
 
-  final List<PieChartSectionData> paiCharSelectionData;
+  final List<PieChartSectionData>  paiCharSelectionData;
 
   @override
   Widget build(BuildContext context) {
