@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:budget_app/models/category_model.dart';
 import 'package:budget_app/models/expense_model.dart';
 
-
 final rand = Random();
 
 final List<double> weeklySpending = [
