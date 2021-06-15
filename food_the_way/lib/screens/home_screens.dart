@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_the_way/data/data.dart';
+import 'package:food_the_way/screens/cart_screen.dart';
 import 'package:food_the_way/screens/nearby_restaurants.dart';
 import 'package:food_the_way/widgets/recent_orders.dart';
 
@@ -23,7 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actions: [
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => CartScreen()));
+              },
               child: Text(
                 "Cart (${cartItemCount})",
                 style: TextStyle(color: Colors.white, fontSize: 20),
@@ -57,11 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           RecentOrders(),
           Nearby_Restaurants(),
-
-          
         ],
       ),
     );
   }
 }
-
