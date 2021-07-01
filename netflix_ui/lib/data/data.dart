@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:netflix_ui/assets.dart';
 import 'package:netflix_ui/models/content_model.dart';
