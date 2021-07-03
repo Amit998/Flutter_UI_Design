@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix_ui/cubits/cubits.dart';
 import 'package:netflix_ui/screens/screens.dart';
+import 'package:netflix_ui/widgets/widgets.dart';
 
 class NavScreen extends StatefulWidget {
   @override
@@ -8,7 +11,7 @@ class NavScreen extends StatefulWidget {
 
 class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
-    HomePage(key:PageStorageKey('homeScreen')),
+    HomePage(key: PageStorageKey('homeScreen')),
     Scaffold(),
     Scaffold(),
     Scaffold(),
@@ -28,32 +31,35 @@ class _NavScreenState extends State<NavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        type: BottomNavigationBarType.fixed,
-        items: _icons
-            .map((title, icon) => MapEntry(
-                title,
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    icon,
-                    size: 30.0,
-                  ),
-                  title: Text(title),
-                )))
-            .values
-            .toList(),
-        selectedItemColor: Colors.white,
-        selectedFontSize: 11.0,
-        unselectedItemColor: Colors.grey,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
+      body: BlocProvider<AppBarCubit>(
+          create: (_) => AppBarCubit(), child: _screens[_currentIndex]),
+      bottomNavigationBar: !Responsive.isDesktop(context)
+          ? BottomNavigationBar(
+              backgroundColor: Colors.black,
+              type: BottomNavigationBarType.fixed,
+              items: _icons
+                  .map((title, icon) => MapEntry(
+                      title,
+                      BottomNavigationBarItem(
+                        icon: Icon(
+                          icon,
+                          size: 30.0,
+                        ),
+                        title: Text(title),
+                      )))
+                  .values
+                  .toList(),
+              selectedItemColor: Colors.white,
+              selectedFontSize: 11.0,
+              unselectedItemColor: Colors.grey,
+              currentIndex: _currentIndex,
+              onTap: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+            )
+          : null,
     );
   }
 }
