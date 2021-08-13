@@ -27,7 +27,23 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  TabController controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    controller = new TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
               borderRadius: BorderRadius.circular(15),
               elevation: 4,
               child: Container(
-                height: 450,
+                height: 470,
                 width: double.infinity,
                 padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
@@ -133,23 +149,196 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 color: Colors.grey,
                               ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                "data",
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                              
                             ],
                           ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 12,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Row(
+                      children: [
+                        Hero(
+                            tag: 'assets/modelgrid1.jpeg',
+                            child: Container(
+                              height: 200.0,
+                              width:
+                                  (MediaQuery.of(context).size.width - 50) / 2,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                        "assets/modelgrid1.jpeg",
+                                      ),
+                                      fit: BoxFit.cover)),
+                            )),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Hero(
+                              tag: "assets/modelgrid2.jpeg",
+                              child: Container(
+                                height: 120,
+                                width:
+                                    (MediaQuery.of(context).size.width - 90) /
+                                        2,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/modelgrid2.jpeg"),
+                                        fit: BoxFit.cover)),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Hero(
+                              tag: "assets/modelgrid3.jpeg",
+                              child: Container(
+                                height: 80,
+                                width:
+                                    (MediaQuery.of(context).size.width - 90) /
+                                        2,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/modelgrid3.jpeg"),
+                                        fit: BoxFit.cover)),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          height: 25,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.brown.withOpacity(0.2),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "# Louise Vuitto",
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 10.0,
+                                color: Colors.brown,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Container(
+                          height: 25,
+                          width: 75,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.brown.withOpacity(0.2),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "# Choice",
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 10.0,
+                                color: Colors.brown,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Container(
+                      height: 1,
+                      width: double.infinity,
+                      decoration:
+                          BoxDecoration(color: Colors.grey.withOpacity(0.2)),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.replay,
+                              color: Colors.grey.withOpacity(0.4),
+                              size: 20.0,
+                            ),
+                            SizedBox(
+                              width: 5.0,
+                            ),
+                            Text(
+                              "1.7K",
+                              style: TextStyle(
+                                  color: Colors.grey, fontFamily: "Montserrat"),
+                            ),
+                            SizedBox(
+                              width: 15.0,
+                            ),
+                            Icon(
+                              Icons.comment,
+                              color: Colors.grey.withOpacity(0.4),
+                              size: 20.0,
+                            ),
+                            SizedBox(
+                              width: 5.0,
+                            ),
+                            Text(
+                              "359",
+                              style: TextStyle(
+                                  color: Colors.grey, fontFamily: "Montserrat"),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.favorite,
+                              color: Colors.redAccent,
+                              size: 20.0,
+                            ),
+                            SizedBox(
+                              width: 5.0,
+                            ),
+                            Text(
+                              "2.3K",
+                              style: TextStyle(
+                                  color: Colors.grey, fontFamily: "Montserrat"),
+                            ),
+                          ],
                         )
                       ],
                     )
@@ -159,6 +348,39 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           )
         ],
+      ),
+      bottomNavigationBar: Material(
+        color: Colors.white,
+        child: TabBar(
+          controller: controller,
+          indicatorColor: Colors.transparent,
+          tabs: [
+            Tab(
+              icon: Icon(
+                Icons.more,
+                color: Colors.grey,
+              ),
+            ),
+            Tab(
+              icon: Icon(
+                Icons.play_arrow,
+                color: Colors.grey,
+              ),
+            ),
+            Tab(
+              icon: Icon(
+                Icons.navigation,
+                color: Colors.grey,
+              ),
+            ),
+            Tab(
+              icon: Icon(
+                Icons.supervised_user_circle,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
